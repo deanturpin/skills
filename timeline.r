@@ -17,7 +17,7 @@ start_date <- as.Date('1998-09-01')
 
 ggplot(skills_melted, aes(value, name)) +
   geom_line(size = 2) +
-  # labs(x = '', y = '', title = "Dean Turpin skills timeline") +
+  labs(x = '', y = '', title = '') +
   theme_bw(base_size = 10) +
   theme(plot.title = element_text(hjust = 0.5),
         panel.grid.major.x = element_line(colour="grey", linetype = "dashed"),
@@ -26,7 +26,6 @@ ggplot(skills_melted, aes(value, name)) +
         panel.grid.minor = element_blank(),
         axis.text.x = element_text(angle = 90)) +
   scale_x_date(date_labels = "%Y", limits = c(start_date, NA), date_breaks = '1 year')
-  # + scale_y_continuous(position = "right")
 
 ggsave("public/skills.png")
 
