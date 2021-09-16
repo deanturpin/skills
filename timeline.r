@@ -17,7 +17,7 @@ start_date <- as.Date('1998-09-01')
 
 ggplot(skills_melted, aes(value, name)) +
   geom_line(size = 2) +
-  # labs(x = '', y = '', title = "Dean Turpin skills timeline") +
+  labs(x = '', y = '', title = "Dean Turpin skills timeline") +
   theme_bw(base_size = 10) +
   theme(plot.title = element_text(hjust = 0.5),
         panel.grid.major.x = element_line(colour="grey", linetype = "dashed"),
