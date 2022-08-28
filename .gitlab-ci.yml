@@ -5,7 +5,4 @@ pages:
     - R -e 'install.packages(c("reshape2", "ggplot2"))'
     - R --no-save < timeline.r
   artifacts:
-    paths:
-      - public
-  only:
-    - master
+    paths: [public]
