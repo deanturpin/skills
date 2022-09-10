@@ -8,6 +8,6 @@ pages:
     - R -e 'install.packages(c("reshape2", "ggplot2"))'
     - R --no-save < timeline.r
 
-Logbook:
+CV:
     stage: deploy
     trigger: germs-dev/cv
