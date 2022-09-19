@@ -9,5 +9,7 @@ pages:
     - R --no-save < timeline.r
 
 CV:
-    stage: deploy
-    trigger: germs-dev/cv
+  stage: deploy
+  trigger: germs-dev/cv
+  only:
+    - main
