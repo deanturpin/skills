@@ -22,7 +22,7 @@ ggplot(skills_melted, aes(value, name)) +
   # Set title size
   theme(plot.title = element_text(size = 8)) +
   # Add today's date as the title
-  labs(x = '', y='', title = format(Sys.Date(), "%B %d, %Y")) +
+  labs(x = '', y='', title = format(Sys.Date(), "Updated %B %Y")) +
   theme(plot.title = element_text(hjust = 0.5),
         panel.grid.major.x = element_line(colour="grey", linetype = "dashed"),
         panel.grid.major.y = element_line(colour="grey", linetype = "solid"),
