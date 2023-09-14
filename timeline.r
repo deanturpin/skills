@@ -17,8 +17,12 @@ start_date <- as.Date('1998-09-01')
 
 ggplot(skills_melted, aes(value, name)) +
   geom_line(size = 2) +
-  labs(x = '', y = '', title = '') +
-  theme_bw(base_size = 10) +
+  # Plot y axis labels on right
+  scale_y_discrete(position = "right") +
+  # Set title size
+  theme(plot.title = element_text(size = 8)) +
+  # Add today's date as the title
+  labs(x = '', y='', title = format(Sys.Date(), "%B %d, %Y")) +
   theme(plot.title = element_text(hjust = 0.5),
         panel.grid.major.x = element_line(colour="grey", linetype = "dashed"),
         panel.grid.major.y = element_line(colour="grey", linetype = "solid"),
