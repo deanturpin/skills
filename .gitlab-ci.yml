@@ -1,15 +1,9 @@
-image: r-base
-
 pages:
+  image: r-base
   stage: build
   artifacts:
     paths: [public]
   script:
     - R -e 'install.packages(c("reshape2", "ggplot2"))'
     - R --no-save < timeline.r
-
-CV:
-  stage: deploy
-  trigger: germs-dev/cv
-  only: [main]
 
