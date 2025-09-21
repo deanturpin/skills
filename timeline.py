@@ -63,8 +63,20 @@ def create_log_scale_timeline(df):
 
     df['category'] = df['name'].apply(categorise_skill)
 
-    # Sort by start date for better visual layering
-    df = df.sort_values('start')
+    # Remove number prefixes from skill names
+    df['clean_name'] = df['name'].apply(lambda x: x.split(' ', 1)[-1] if ' ' in x else x)
+
+    # Sort by category and start date for better visual grouping
+    df['category_order'] = df['category'].map({
+        'Programming': 0,
+        'Tools & Systems': 1,
+        'Platforms & Cloud': 2,
+        'Protocols & Standards': 3,
+        'Frameworks & Libraries': 4,
+        'Other': 5
+    })
+    df = df.sort_values(['category_order', 'start'])
+    df = df.reset_index(drop=True)
 
     # Add timeline traces
     for i, (_, row) in enumerate(df.iterrows()):
@@ -79,13 +91,10 @@ def create_log_scale_timeline(df):
         # Calculate middle point for text placement
         mid_point_log = (row['start_log'] + row['end_log']) / 2
 
-        # Extract skill name without number prefix
-        skill_name = row['name'].split(' ', 1)[-1] if ' ' in row['name'] else row['name']
-
         # Add the timeline segment (using log-transformed dates)
         fig.add_trace(go.Scatter(
             x=[row['start_log'], row['end_log']],
-            y=[row['name'], row['name']],
+            y=[i, i],  # Use index for y-position
             mode='lines',
             line=dict(
                 color=color,
@@ -93,7 +102,7 @@ def create_log_scale_timeline(df):
             ),
             name=category,
             showlegend=False,  # Hide legend
-            hovertemplate=f"<b>{row['name']}</b><br>" +
+            hovertemplate=f"<b>{row['clean_name']}</b><br>" +
                          f"Start: {row['start'].strftime('%b %Y')}<br>" +
                          f"End: {row['end'].strftime('%b %Y')}<br>" +
                          f"Duration: {((row['end'] - row['start']).days / 365.25):.1f} years<br>" +
@@ -103,9 +112,9 @@ def create_log_scale_timeline(df):
         # Add text label in the middle of the bar
         fig.add_trace(go.Scatter(
             x=[mid_point_log],
-            y=[row['name']],
+            y=[i],  # Use index for y-position
             mode='text',
-            text=[skill_name],
+            text=[row['clean_name']],
             textfont=dict(
                 size=7,
                 color='white',
@@ -138,16 +147,14 @@ def create_log_scale_timeline(df):
         ),
         yaxis=dict(
             title="",
-            showgrid=True,
-            gridcolor='#F8F9FA',
-            gridwidth=1,
-            tickfont=dict(size=8, color='#34495E'),
+            showgrid=False,
+            showticklabels=False,  # Hide y-axis labels
             autorange='reversed'  # Most recent skills at top
         ),
         plot_bgcolor='white',
         paper_bgcolor='white',
         font=dict(family="Arial, sans-serif"),
-        margin=dict(l=200, r=50, t=80, b=80),
+        margin=dict(l=50, r=50, t=80, b=80),
         height=800,
         width=1200,
         showlegend=False
