@@ -76,6 +76,12 @@ def create_log_scale_timeline(df):
         years_since_start = (today - row['start']).days / 365.25
         line_width = max(2, 8 - (years_since_start / 5))  # Thicker for more recent
 
+        # Calculate middle point for text placement
+        mid_point_log = (row['start_log'] + row['end_log']) / 2
+
+        # Extract skill name without number prefix
+        skill_name = row['name'].split(' ', 1)[-1] if ' ' in row['name'] else row['name']
+
         # Add the timeline segment (using log-transformed dates)
         fig.add_trace(go.Scatter(
             x=[row['start_log'], row['end_log']],
@@ -86,12 +92,27 @@ def create_log_scale_timeline(df):
                 width=line_width
             ),
             name=category,
-            showlegend=i == 0 or category != df.iloc[i-1]['category'],  # Show legend once per category
+            showlegend=False,  # Hide legend
             hovertemplate=f"<b>{row['name']}</b><br>" +
                          f"Start: {row['start'].strftime('%b %Y')}<br>" +
                          f"End: {row['end'].strftime('%b %Y')}<br>" +
                          f"Duration: {((row['end'] - row['start']).days / 365.25):.1f} years<br>" +
                          "<extra></extra>"
+        ))
+
+        # Add text label in the middle of the bar
+        fig.add_trace(go.Scatter(
+            x=[mid_point_log],
+            y=[row['name']],
+            mode='text',
+            text=[skill_name],
+            textfont=dict(
+                size=7,
+                color='white',
+                weight='bold'
+            ),
+            showlegend=False,
+            hoverinfo='skip'
         ))
 
     # Update layout with modern styling
@@ -129,14 +150,7 @@ def create_log_scale_timeline(df):
         margin=dict(l=200, r=50, t=80, b=80),
         height=800,
         width=1200,
-        legend=dict(
-            orientation="h",
-            yanchor="bottom",
-            y=-0.15,
-            xanchor="center",
-            x=0.5,
-            font=dict(size=10)
-        )
+        showlegend=False
     )
 
     return fig
