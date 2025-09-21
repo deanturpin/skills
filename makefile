@@ -2,3 +2,6 @@
 
 all:
 	R --no-save < timeline.r && firefox public/index.html
+
+deploy:
+	git add -A && git commit -m "Auto-commit from make deploy 🤖" && git push
