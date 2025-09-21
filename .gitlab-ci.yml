@@ -1,4 +1,14 @@
 pages:
+  image: python:3.11-slim
+  stage: build
+  artifacts:
+    paths: [public]
+  script:
+    - pip install -r requirements.txt
+    - python timeline.py
+
+# Legacy R version (backup)
+pages-r:
   image: r-base
   stage: build
   artifacts:
@@ -6,4 +16,5 @@ pages:
   script:
     - R -e 'install.packages(c("reshape2", "ggplot2"))'
     - R --no-save < timeline.r
+  when: manual
 
