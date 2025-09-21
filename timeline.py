@@ -142,14 +142,26 @@ def create_log_scale_timeline(df):
     return fig
 
 
-def save_timeline(fig, output_path="public/skills.png"):
-    """Save the timeline as a high-quality PNG."""
+def save_timeline(fig, png_path="public/skills.png", html_path="public/timeline.html"):
+    """Save the timeline as both PNG and interactive HTML."""
+    # High-quality PNG for CV integration
     fig.write_image(
-        output_path,
+        png_path,
         width=1200,
         height=800,
         scale=3,  # High DPI for crisp CV integration
         format="png"
+    )
+
+    # Interactive HTML for GitLab Pages
+    fig.write_html(
+        html_path,
+        config={
+            'displayModeBar': True,
+            'modeBarButtonsToRemove': ['lasso2d', 'select2d'],
+            'responsive': True
+        },
+        include_plotlyjs='cdn'
     )
 
 
@@ -163,11 +175,12 @@ def main():
     print("Creating timeline visualization...")
     fig = create_log_scale_timeline(df)
 
-    print("Saving timeline as PNG...")
+    print("Saving timeline as PNG and HTML...")
     save_timeline(fig)
 
     print("✅ Skills timeline generated successfully!")
-    print("📁 Output: public/skills.png")
+    print("📁 PNG: public/skills.png")
+    print("🌐 Interactive: public/timeline.html")
 
 
 if __name__ == "__main__":

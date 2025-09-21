@@ -1,1 +1,128 @@
-<img width="75%" src="skills.png" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills Timeline</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8f9fa;
+            color: #2c3e50;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #2e86ab, #a23b72);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        .content {
+            padding: 30px;
+        }
+        .versions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .version-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+        .version-card h3 {
+            margin-top: 0;
+            color: #2e86ab;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #2e86ab;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #1f5f7a;
+        }
+        .timeline-embed {
+            margin-top: 30px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .footer {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ecf0f1;
+        }
+        @media (max-width: 768px) {
+            .versions {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Skills Timeline</h1>
+            <p>Professional development journey • 1998 to present</p>
+        </div>
+
+        <div class="content">
+            <div class="versions">
+                <div class="version-card">
+                    <h3>📊 Interactive Timeline</h3>
+                    <p>Explore with zoom, hover, and filtering controls</p>
+                    <a href="timeline.html" class="btn">View Interactive</a>
+                </div>
+
+                <div class="version-card">
+                    <h3>📄 Static Image</h3>
+                    <p>High-resolution PNG for CV integration</p>
+                    <a href="skills.png" class="btn" download>Download PNG</a>
+                </div>
+            </div>
+
+            <div class="timeline-embed">
+                <iframe src="timeline.html" width="100%" height="600"
+                        style="border: none; display: block;"></iframe>
+            </div>
+
+            <div class="footer">
+                <p>Generated with Python & Plotly • Auto-updated via GitLab CI</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
